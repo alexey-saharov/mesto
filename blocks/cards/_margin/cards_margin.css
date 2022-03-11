@@ -1,0 +1,9 @@
+.cards_margin {
+  margin-bottom: 48px;
+}
+
+@media screen and (min-width: 880px) {
+  .cards_margin {
+    margin-bottom: 66px;
+  }
+}
