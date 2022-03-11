@@ -1,0 +1,10 @@
+.profile__name {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+@media screen and (min-width: 880px) {
+  .profile__name-text {
+    margin-bottom: 16px;
+  }
+}
