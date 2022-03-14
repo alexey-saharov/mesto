@@ -4,86 +4,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Mesto</title>
+  <title>Место</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body>
-<div class="root">
-  <header class="header root__section header_margin_bottom">
-    <a href="#" class="header__logo link"></a>
-  </header>
+  <div class="root">
+    <header class="header root__section header_margin_bottom">
+      <a href="#" class="header__logo link"></a>
+    </header>
 
-  <main class="content">
-    <section class="profile root__section profile_margin">
-      <div class="profile__card">
-        <img src="./blocks/profile/images/profile-Jacques-Yves_Cousteau.webp" alt="фото профиля" class="profile__photo">
-        <div class="profile__text">
-          <div class="profile__name">
-            <h1 class="profile__name-text">Жак-Ив Кусто</h1>
-            <div class="profile__edit-button">
-              <img src="./blocks/profile/images/profile-edit.svg" alt="карандаш" class="profile__edit-button-img">
+    <main class="content">
+      <section class="profile root__section profile_margin">
+        <div class="profile__card">
+          <img src="./blocks/profile/images/profile-Jacques-Yves_Cousteau.webp" alt="фото профиля" class="profile__photo">
+          <div class="profile__text">
+            <div class="profile__name">
+              <h1 class="profile__name-text">Жак-Ив Кусто</h1>
+              <nav class="profile__edit-button">
+                <img src="./blocks/profile/images/profile-edit.svg" alt="карандаш" class="profile__edit-button-img">
+              </nav>
             </div>
+            <p class="profile__job-text">Исследователь океана</p>
           </div>
-          <p class="profile__job-text">Исследователь океана</p>
         </div>
-      </div>
-      <div class="profile__add-button">
-        <img src="./blocks/profile/images/profile-plus.svg" alt="плюс" class="profile__add-button-img">
-      </div>
+        <div class="profile__add-button">
+          <img src="./blocks/profile/images/profile-plus.svg" alt="плюс" class="profile__add-button-img">
+        </div>
+      </section>
+
+      <section class="cards root__section cards_margin">
+        <ul class="cards__items">
+          <li class="cards__item">
+            <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
+            <p class="cards__title">Карачаевск</p>
+            <div class="cards__heart"></div>
+          </li>
+          <li class="cards__item">
+            <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
+            <p class="cards__title">Гора Эльбрус</p>
+            <div class="cards__heart"></div>
+          </li>
+          <li class="cards__item">
+            <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
+            <p class="cards__title">Домбай</p>
+            <div class="cards__heart"></div>
+          </li>
+          <li class="cards__item">
+            <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
+            <p class="cards__title">Гора Эльбрус</p>
+            <div class="cards__heart"></div>
+          </li>
+          <li class="cards__item">
+            <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
+            <p class="cards__title">Домбай</p>
+            <div class="cards__heart"></div>
+          </li>
+          <li class="cards__item">
+            <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
+            <p class="cards__title">Карачаево-Черкесия</p>
+            <div class="cards__heart"></div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer root__section">
+      <p class="footer__copyright">&#169; 2022 Алексей Сахаров</p>
+    </footer>
+
+    <section class="popup">
+      <form action="" class="popup__container">
+        <img src="./blocks/popup/images/popup-close-button.svg" alt="крестик" class="popup__close-button-img">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" name="fullname" value="" class="popup__input-name">
+        <input type="text" name="job" value="" class="popup__input-job">
+        <button type="submit" class="popup__submit-button">Сохранить</button>
+      </form>
     </section>
-
-    <section class="cards root__section cards_margin">
-      <ul class="cards__items">
-        <li class="cards__item">
-          <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
-          <p class="cards__title">Карачаевск</p>
-          <div class="cards__heart"></div>
-        </li>
-        <li class="cards__item">
-          <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
-          <p class="cards__title">Гора Эльбрус</p>
-          <div class="cards__heart"></div>
-        </li>
-        <li class="cards__item">
-          <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
-          <p class="cards__title">Домбай</p>
-          <div class="cards__heart"></div>
-        </li>
-        <li class="cards__item">
-          <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
-          <p class="cards__title">Гора Эльбрус</p>
-          <div class="cards__heart"></div>
-        </li>
-        <li class="cards__item">
-          <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
-          <p class="cards__title">Домбай</p>
-          <div class="cards__heart"></div>
-        </li>
-        <li class="cards__item">
-          <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
-          <p class="cards__title">Карачаево-Черкесия</p>
-          <div class="cards__heart"></div>
-        </li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="footer root__section">
-    <p class="footer__copyright">&#169; 2022 Алексей Сахаров</p>
-  </footer>
-
-  <section class="popup popup_opened">
-    <form action="" class="popup__container">
-      <img src="./blocks/popup/images/popup-close-button.svg" alt="крестик" class="popup__close-button-img">
-      <p class="popup__title">Редактировать профиль</p>
-      <input type="text" name="fullname" value="Жак-Ив Кусто" class="popup__input-name">
-      <input type="text" name="job" value="Исследователь океана" class="popup__input-job">
-      <button type="submit" class="popup__submit-button">Сохранить</button>
-    </form>
-  </section>
-
+  </div>
   <script src="./script/index.js"></script>
-</div>
-
 </body>
 </html>

@@ -44,7 +44,3 @@
 @import url(../blocks/popup/__input-name/popup__input-name.css);
 @import url(../blocks/popup/__input-job/popup__input-job.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
-
-/*.popup {
-  border: 1px solid red;
-}*/
