@@ -8,6 +8,10 @@
   box-sizing: border-box;
   border: 2px solid #fff;
   cursor: pointer;
+  background-image: url('../images/profile-plus.svg');
+  background-position: center;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
   transition: opacity .2s ease-in-out;
   background-color: #000;
 }
@@ -16,11 +20,9 @@
   opacity: .6;
 }
 
-
 @media screen and (min-width: 880px) {
   .profile__add-button {
     width: 150px;
+    background-size: 22px 22px;
   }
 }
-
-

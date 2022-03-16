@@ -13,6 +13,10 @@
   border-radius: 2px;
   cursor: pointer;
   transition: opacity .2s ease-in-out;
+  background-image: url('../images/profile-edit.svg');
+  background-position: center;
+  background-size: 7.5px 7.5px;
+  background-repeat: no-repeat;
   background-color: #000;
 }
 
@@ -20,12 +24,12 @@
   opacity: .6;
 }
 
-
 @media screen and (min-width: 880px) {
   .profile__edit-button {
     bottom: 8px;
     right: -43px;
     width: 24px;
     height: 24px;
+    background-size: 10px 10px;
   }
 }
