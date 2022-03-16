@@ -1,6 +1,9 @@
 .profile__edit-button-img {
   width: 7.5px;
   height: 7.5px;
+  background-image: url('../images/profile-edit.svg');
+  background-position: center;
+  background-size: 100%;
 }
 
 @media screen and (min-width: 880px) {

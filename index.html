@@ -20,49 +20,61 @@
           <div class="profile__text">
             <div class="profile__name">
               <h1 class="profile__name-text">Жак-Ив Кусто</h1>
-              <nav class="profile__edit-button">
-                <img src="./blocks/profile/images/profile-edit.svg" alt="карандаш" class="profile__edit-button-img">
-              </nav>
+              <button aria-label="редактировать" class="profile__edit-button">
+                <div class="profile__edit-button-img"></div>
+              </button>
             </div>
             <p class="profile__job-text">Исследователь океана</p>
           </div>
         </div>
-        <div class="profile__add-button">
-          <img src="./blocks/profile/images/profile-plus.svg" alt="плюс" class="profile__add-button-img">
-        </div>
+        <button aria-label="добавить" class="profile__add-button">
+          <div class="profile__add-button-img"></div>
+        </button>
       </section>
 
       <section class="cards root__section cards_margin">
         <ul class="cards__items">
           <li class="cards__item">
             <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
-            <p class="cards__title">Карачаевск</p>
-            <div class="cards__heart"></div>
+            <div class="cards__description">
+              <h3 class="cards__title">Карачаевск</h3>
+              <button aria-label="поставить лайк" class="cards__heart"></button>
+            </div>
           </li>
           <li class="cards__item">
             <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
-            <p class="cards__title">Гора Эльбрус</p>
-            <div class="cards__heart"></div>
+            <div class="cards__description">
+              <h3 class="cards__title">Гора Эльбрус</h3>
+              <button aria-label="поставить лайк" class="cards__heart"></button>
+            </div>
           </li>
           <li class="cards__item">
             <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
-            <p class="cards__title">Домбай</p>
-            <div class="cards__heart"></div>
+            <div class="cards__description">
+              <h3 class="cards__title">Домбай</h3>
+              <button aria-label="поставить лайк" class="cards__heart"></button>
+            </div>
           </li>
           <li class="cards__item">
             <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
-            <p class="cards__title">Гора Эльбрус</p>
-            <div class="cards__heart"></div>
+            <div class="cards__description">
+              <h3 class="cards__title">Гора Эльбрус</h3>
+              <button aria-label="поставить лайк" class="cards__heart"></button>
+            </div>
           </li>
           <li class="cards__item">
             <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
-            <p class="cards__title">Домбай</p>
-            <div class="cards__heart"></div>
+            <div class="cards__description">
+              <h3 class="cards__title">Домбай</h3>
+              <button aria-label="поставить лайк" class="cards__heart"></button>
+            </div>
           </li>
           <li class="cards__item">
             <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
-            <p class="cards__title">Карачаево-Черкесия</p>
-            <div class="cards__heart"></div>
+            <div class="cards__description">
+              <h3 class="cards__title">Карачаево-Черкесия</h3>
+              <button aria-label="поставить лайк" class="cards__heart"></button>
+            </div>
           </li>
         </ul>
       </section>
@@ -74,14 +86,14 @@
 
     <section class="popup">
       <form action="#" class="popup__container">
-        <img src="./blocks/popup/images/popup-close-button.svg" alt="крестик" class="popup__close-button-img">
+        <button aria-label="закрыть" class="popup__close-button-img"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <input type="text" name="fullname" value="" class="popup__input-name">
         <input type="text" name="job" value="" class="popup__input-job">
-        <button type="submit" class="popup__submit-button">Сохранить</button>
+        <button type="submit" aria-label="сохранить" class="popup__submit-button">Сохранить</button>
       </form>
     </section>
   </div>
-  <script src="./script/index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

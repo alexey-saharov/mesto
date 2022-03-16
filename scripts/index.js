@@ -1,12 +1,13 @@
-let name = document.querySelector('.profile__name-text');
-let job = document.querySelector('.profile__job-text');
+const name = document.querySelector('.profile__name-text');
+const job = document.querySelector('.profile__job-text');
 
-let editProfileButton = document.querySelector('.profile__edit-button');
+const editProfileButton = document.querySelector('.profile__edit-button');
 
-let formElement = document.querySelector('.popup');
-let nameInput = formElement.querySelector('.popup__input-name');
-let jobInput = formElement.querySelector('.popup__input-job');
-let formCloseButton = formElement.querySelector('.popup__close-button-img');
+const formElement = document.querySelector('.popup');
+const nameInput = formElement.querySelector('.popup__input-name');
+const jobInput = formElement.querySelector('.popup__input-job');
+const formCloseButton = formElement.querySelector('.popup__close-button-img');
+const formSaveButton = formElement.querySelector('.popup__submit-button');
 
 const EnterKey = 'Enter';
 const EscKey = 'Escape';
@@ -17,6 +18,7 @@ function openPopup() {
   jobInput.value = job.textContent;
   formElement.classList.add('popup_opened');
   document.addEventListener('keyup', onDocumentKeyUp);
+  formSaveButton.focus();
 }
 
 editProfileButton.addEventListener('click', openPopup);

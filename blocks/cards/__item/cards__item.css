@@ -1,7 +1,7 @@
 .cards__item {
   position: relative;
   max-width: 282px;
-  height: 360px;
+  min-height: 360px;
   box-sizing: border-box;
   border-radius: 10px;
   overflow: hidden;
