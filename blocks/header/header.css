@@ -1,14 +1,17 @@
 .header {
   max-width: 320px;
-  min-height: 55px;
   padding-top: 28px;
-  border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 540px) {
+  .header {
+    max-width: calc(282px * 2 + 17px);
+    padding-top: 45px;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .header {
     max-width: calc(1280px - 200px * 2);
-    padding-top: 45px;
-    min-height: 73px;
   }
 }

@@ -3,9 +3,15 @@
   padding-bottom: 36px;
 }
 
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 540px) {
+  .footer {
+    max-width: calc(282px * 2 + 17px);
+    padding-bottom: 60px;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .footer {
     max-width: calc(1280px - 200px * 2);
-    padding-bottom: 60px;
   }
 }

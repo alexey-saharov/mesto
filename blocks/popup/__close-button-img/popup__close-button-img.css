@@ -17,7 +17,7 @@
   opacity: .6;
 }
 
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 768px) {
   .popup__close-button-img {
     top: -40px;
     right: -40px;

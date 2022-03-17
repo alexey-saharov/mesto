@@ -8,9 +8,16 @@
   box-sizing: border-box;
 }
 
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 540px) {
   .cards__items {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 17px;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .cards__items {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+

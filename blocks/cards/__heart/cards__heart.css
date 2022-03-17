@@ -4,6 +4,7 @@
   cursor: pointer;
   background-image: url('../images/cards-heart.svg');
   background-size: 100%;
+  background-repeat: no-repeat;
   border: none;
   background-color: #fff;
   transition: opacity .2s ease-in-out;
