@@ -4,16 +4,17 @@ const job = document.querySelector('.profile__job-text');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
-const formElement = document.querySelector('.popup');
-const formTitle = formElement.querySelector('.popup__title');
-const input1 = formElement.querySelector('.popup__input-name');
-const input2 = formElement.querySelector('.popup__input-job');
-const formCloseButton = formElement.querySelector('.popup__close-button-img');
-const formSubmitButton = formElement.querySelector('.popup__submit-button');
+const formPopupElement = document.querySelector('.popup');
+const formTitle = formPopupElement.querySelector('.popup__title');
+const input1 = formPopupElement.querySelector('.popup__input-name');
+const input2 = formPopupElement.querySelector('.popup__input-job');
+const formCloseButton = formPopupElement.querySelector('.popup__close-button-img');
+const formSubmitButton = formPopupElement.querySelector('.popup__submit-button');
 
 let typeForm = '';
 const FORM_EDIT = 'FormEdit';
 const FORM_ADD = 'FormAdd';
+const FORM_IMG = 'FormImg';
 
 const ENTER_KEY = 'Enter';
 const ESC_KEY = 'Escape';
@@ -37,7 +38,7 @@ function openPopup() {
     formSubmitButton.textContent = 'Создать';
   }
 
-  formElement.classList.add('popup_opened');
+  formPopupElement.classList.add('popup_opened');
   document.addEventListener('keyup', onDocumentKeyUp);
   formSubmitButton.focus();
 }
@@ -46,7 +47,7 @@ editProfileButton.addEventListener('click', () => { typeForm = FORM_EDIT; openPo
 addCardButton.addEventListener('click', () => { typeForm = FORM_ADD; openPopup(); });
 
 function closePopup() {
-  formElement.classList.remove('popup_opened');
+  formPopupElement.classList.remove('popup_opened');
   document.removeEventListener('keyup', onDocumentKeyUp);
   typeForm = '';
 }
@@ -65,14 +66,19 @@ function formSubmitHandler (evt) {
   closePopup();
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
+formPopupElement.addEventListener('submit', formSubmitHandler);
 
 function onDocumentKeyUp(event) {
-  if (event.key === ENTER_KEY) {
-    formSubmitHandler();
+  if (typeForm === FORM_EDIT || typeForm === FORM_ADD) {
+    if (event.key === ENTER_KEY) {
+      formSubmitHandler();
+    }
+    if (event.key === ESC_KEY) {
+      closePopup();
+    }
   }
-  if (event.key === ESC_KEY) {
-    closePopup();
+  if (typeForm === FORM_IMG && event.key === ESC_KEY) {
+    closeImgPopup();
   }
 }
 
@@ -84,6 +90,28 @@ function invertHeartActive(evt) {
 function removeCard(evt) {
   evt.target.parentElement.remove();
 }
+
+const formImgPopupElement = document.querySelector('.img-popup');
+const formImgPopupImageElement = formImgPopupElement.querySelector('.img-popup__image');
+const formImgPopupImageTitleElement = formImgPopupElement.querySelector('.img-popup__title');
+const formImgPopupCloseButton = formImgPopupElement.querySelector('.img-popup__close-button-img');
+
+function openImgPopup(evt) {
+  typeForm = FORM_IMG;
+  formImgPopupImageElement.setAttribute('src', evt.target.src);
+  formImgPopupImageTitleElement.textContent = evt.target.nextElementSibling.firstElementChild.textContent;
+  formImgPopupElement.classList.add('img-popup_opened');
+  document.addEventListener('keyup', onDocumentKeyUp);
+}
+
+function closeImgPopup() {
+  formImgPopupElement.classList.remove('img-popup_opened');
+  document.removeEventListener('keyup', onDocumentKeyUp);
+  typeForm = '';
+}
+
+formImgPopupCloseButton.addEventListener('click', closeImgPopup);
+
 
 
 const cardTemplate = document.querySelector('#card').content;
@@ -98,6 +126,7 @@ function addCard (card) {
 
   let heartsElement = document.querySelectorAll('.cards__heart');
   let trashesElement = document.querySelectorAll('.cards__trash');
+  let imagesElement = document.querySelectorAll('.cards__img');
 
   Array.from(heartsElement).forEach((item) => {
     item.addEventListener('click', invertHeartActive);
@@ -106,7 +135,12 @@ function addCard (card) {
   Array.from(trashesElement).forEach((item) => {
     item.addEventListener('click', removeCard);
   });
+
+  Array.from(imagesElement).forEach((item) => {
+    item.addEventListener('click', openImgPopup);
+  });
 }
+
 
 const cardArr = [['./blocks/cards/images/cards-sudak.webp', 'каменное побережье', 'Судак'],
   ['./blocks/cards/images/cards-saint-petersburg.webp', 'фонтаны на фоне дворца', 'Санкт-Петербург'],
@@ -118,4 +152,6 @@ const cardArr = [['./blocks/cards/images/cards-sudak.webp', 'каменное п
 cardArr.forEach(item => addCard(item));
 
 
-
+//Проверить доступность картинки по ссылке перед добавлением
+//названия переменных и функций привести к единообразному виду
+//перестал работать Enter
