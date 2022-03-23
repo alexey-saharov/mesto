@@ -81,6 +81,10 @@ function invertHeartActive(evt) {
   evt.target.classList.toggle('cards__heart_active');
 }
 
+function removeCard(evt) {
+  evt.target.parentElement.remove();
+}
+
 
 const cardTemplate = document.querySelector('#card').content;
 const cardsElement = document.querySelector('.cards__items');
@@ -92,10 +96,15 @@ function addCard (card) {
   cardElement.querySelector('.cards__title').textContent = card[2];
   cardsElement.prepend(cardElement);
 
-  let hearstElement = document.querySelectorAll('.cards__heart');
+  let heartsElement = document.querySelectorAll('.cards__heart');
+  let trashesElement = document.querySelectorAll('.cards__trash');
 
-  Array.from(hearstElement).forEach((item) => {
+  Array.from(heartsElement).forEach((item) => {
     item.addEventListener('click', invertHeartActive);
+  });
+
+  Array.from(trashesElement).forEach((item) => {
+    item.addEventListener('click', removeCard);
   });
 }
 
