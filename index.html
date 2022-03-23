@@ -17,7 +17,8 @@
     <main class="content">
       <section class="profile root__section profile_margin">
         <div class="profile__card">
-          <img src="./blocks/profile/images/profile-Jacques-Yves_Cousteau.webp" alt="фото профиля" class="profile__photo">
+          <img src="./blocks/profile/images/profile-Jacques-Yves_Cousteau.webp" alt="фото профиля"
+               class="profile__photo">
           <div class="profile__text">
             <div class="profile__name">
               <h1 class="profile__name-text">Жак-Ив Кусто</h1>
@@ -31,48 +32,15 @@
 
       <section class="cards root__section cards_margin">
         <ul class="cards__items">
-          <li class="cards__item">
-            <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
-            <div class="cards__description">
-              <h3 class="cards__title">Карачаевск</h3>
-              <button aria-label="добавить в избранное" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
-            <div class="cards__description">
-              <h3 class="cards__title">Гора Эльбрус</h3>
-              <button aria-label="добавить в избранное" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
-            <div class="cards__description">
-              <h3 class="cards__title">Домбай</h3>
-              <button aria-label="добавить в избранное" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./blocks/cards/images/cards-elbrus.jpg" alt="гора Эльбрус издалека" class="cards__img">
-            <div class="cards__description">
-              <h3 class="cards__title">Гора Эльбрус</h3>
-              <button aria-label="добавить в избранное" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./blocks/cards/images/cards-dombai.jpg" alt="заснеженные вершины Домбая" class="cards__img">
-            <div class="cards__description">
-              <h3 class="cards__title">Домбай</h3>
-              <button aria-label="добавить в избранное" class="cards__heart"></button>
-            </div>
-          </li>
-          <li class="cards__item">
-            <img src="./blocks/cards/images/cards-karachaevsk.jpg" alt="древняя заброшенная церковь" class="cards__img">
-            <div class="cards__description">
-              <h3 class="cards__title">Карачаево-Черкесия</h3>
-              <button aria-label="добавить в избранное" class="cards__heart"></button>
-            </div>
-          </li>
+          <template id="card">
+            <li class="cards__item">
+              <img src="" alt="" class="cards__img">
+              <div class="cards__description">
+                <h3 class="cards__title"></h3>
+                <button aria-label="добавить в избранное" class="cards__heart"></button>
+              </div>
+            </li>
+          </template>
         </ul>
       </section>
     </main>

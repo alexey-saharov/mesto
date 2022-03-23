@@ -9,8 +9,8 @@ const jobInput = formElement.querySelector('.popup__input-job');
 const formCloseButton = formElement.querySelector('.popup__close-button-img');
 const formSaveButton = formElement.querySelector('.popup__submit-button');
 
-const EnterKey = 'Enter';
-const EscKey = 'Escape';
+const ENTER_KEY = 'Enter';
+const ESC_KEY = 'Escape';
 
 
 function openPopup() {
@@ -40,10 +40,31 @@ function formSubmitHandler (evt) {
 formElement.addEventListener('submit', formSubmitHandler);
 
 function onDocumentKeyUp(event) {
-  if (event.key === EnterKey) {
+  if (event.key === ENTER_KEY) {
     formSubmitHandler();
   }
-  if (event.key === EscKey) {
+  if (event.key === ESC_KEY) {
     closePopup();
   }
 }
+
+
+const cardArr = [['./blocks/cards/images/cards-nalchik.webp', 'замок на озере', 'Нальчик'],
+  ['./blocks/cards/images/cards-altay.webp', 'река на Алтае', 'Алтай'],
+  ['./blocks/cards/images/cards-irkuskaya-obl.webp', 'замерзший Байкал', 'Иркутская область'],
+  ['./blocks/cards/images/cards-sochi.webp', 'заснеженные горные вершины', 'Сочи'],
+  ['./blocks/cards/images/cards-saint-petersburg.webp', 'фонтаны на фоне дворца', 'Санкт-Петербург'],
+  ['./blocks/cards/images/cards-sudak.webp', 'каменное побережье', 'Судак']];
+
+const cardTemplate = document.querySelector('#card').content;
+const cardsElement = document.querySelector('.cards__items');
+
+cardArr.forEach(item => {
+  let cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
+  cardElement.querySelector('.cards__img').src = item[0];
+  cardElement.querySelector('.cards__img').alt = item[1];
+  cardElement.querySelector('.cards__title').textContent = item[2];
+  cardsElement.append(cardElement);
+});
+
+
