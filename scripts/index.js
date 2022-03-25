@@ -5,21 +5,17 @@ const btnAddCard = document.querySelector('.profile__add-button');
 const cardsItems = document.querySelector('.cards__items');
 const cardTemplate = cardsItems.querySelector('#card__template').content;
 
-const popups = document.querySelectorAll('.popup');
-const popupEditProfile = popups[0];
-const popupAddCard = popups[1];
-const popupImage = popups[2];
-
-const popupEditProfileInputs = popupEditProfile.querySelectorAll('.popup__input');
-const popupEditProfileInputName = popupEditProfileInputs[0];
-const popupEditProfileInputJob = popupEditProfileInputs[1];
+const popupEditProfile = document.querySelector('.popup_type_profile');
+const popupEditProfileInputName = popupEditProfile.querySelector('.popup__input_fullname');
+const popupEditProfileInputJob = popupEditProfile.querySelector('.popup__input_job');
 const popupEditProfileBtnClose = popupEditProfile.querySelector('.popup__button-close');
 
-const popupAddCardInputs = popupAddCard.querySelectorAll('.popup__input');
-const popupAddCardInputPlaceName = popupAddCardInputs[0];
-const popupAddCardInputPlaceLink = popupAddCardInputs[1];
+const popupAddCard = document.querySelector('.popup_type_card-add');
+const popupAddCardInputPlaceName = popupAddCard.querySelector('.popup__input_placename');
+const popupAddCardInputPlaceLink = popupAddCard.querySelector('.popup__input_placelink');
 const popupAddCardBtnClose = popupAddCard.querySelector('.popup__button-close');
 
+const popupImage = document.querySelector('.popup_type_image');
 const popupImageImg = popupImage.querySelector('.popup__image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 const popupImageBtnClose = popupImage.querySelector('.popup__button-close');
@@ -83,7 +79,7 @@ function removeCard(evt) {
 
 
 
-function createCard (link, description, name) {
+function createCard (link, name) {
   const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
   cardElement.querySelector('.cards__img').src = link;
   cardElement.querySelector('.cards__img').alt = name;
@@ -98,22 +94,43 @@ function createCard (link, description, name) {
   const imageElement = cardElement.querySelector('.cards__img');
   imageElement.addEventListener('click', (evt) => {
     popupImageImg.setAttribute('src', evt.target.src);
-    popupImageTitle.textContent = evt.target.closest('.cards__item').querySelector('.cards__title').textContent;
+    popupImageTitle.textContent = name;
     openPopup(popupImage);
   });
 
   return cardElement;
 }
 
-function renderCard (link, description, name) {
-  cardsItems.prepend(createCard(link, description, name));
+function renderCard (link, name) {
+  cardsItems.prepend(createCard(link, name));
 }
 
-const cardArr = [['./images/cards-sudak.webp', 'каменное побережье', 'Судак'],
-  ['./images/cards-saint-petersburg.webp', 'фонтаны на фоне дворца', 'Санкт-Петербург'],
-  ['./images/cards-sochi.webp', 'заснеженные горные вершины', 'Сочи'],
-  ['./images/cards-irkutskaya-obl.webp', 'замерзший Байкал', 'Иркутская область'],
-  ['./images/cards-altay.webp', 'река на Алтае', 'Алтай'],
-  ['./images/cards-nalchik.webp', 'замок на озере', 'Нальчик']];
 
-cardArr.forEach(item => renderCard(...item));
+const initialCards = [
+  {
+    name: 'Судак',
+    link: './images/cards-sudak.webp'
+  },
+  {
+    name: 'Санкт-Петербург',
+    link: './images/cards-saint-petersburg.webp'
+  },
+  {
+    name: 'Сочи',
+    link: './images/cards-sochi.webp'
+  },
+  {
+    name: 'Иркутская область',
+    link: './images/cards-irkutskaya-obl.webp'
+  },
+  {
+    name: 'Алтай',
+    link: './images/cards-altay.webp'
+  },
+  {
+    name: 'Нальчик',
+    link: './images/cards-nalchik.webp'
+  }
+];
+
+initialCards.forEach(item => renderCard(item.link, item.name));
