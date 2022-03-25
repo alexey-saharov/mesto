@@ -2,9 +2,8 @@
   width: 22px;
   height: 19px;
   cursor: pointer;
-  background-image: url('../images/cards-heart.svg');
+  background-image: url('../../../images/cards-heart.svg');
   background-size: contain;
-  -webkit-background-size: contain;
   background-repeat: no-repeat;
   border: none;
   background-color: #fff;

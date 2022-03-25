@@ -5,9 +5,8 @@
   width: 18px;
   height: 19px;
   cursor: pointer;
-  background-image: url('../images/cards-trash.svg');
+  background-image: url('../../../images/cards-trash.svg');
   background-size: contain;
-  -webkit-background-size: contain;
   background-repeat: no-repeat;
   border: none;
   background-color: rgba(255, 255, 255, 0);
