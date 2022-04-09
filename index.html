@@ -54,8 +54,9 @@
       <form action="#" class="popup__container">
         <button type="button" aria-label="закрыть" class="popup__button-close"></button>
         <h2 class="popup__title">Редактировать</h2>
-        <input type="text" name="fullname" value="" class="popup__input popup__input_fullname">
-        <input type="text" name="job" value="" class="popup__input popup__input_job popup__input_margin">
+        <input type="text" name="fullname" placeholder="Имя" value="" class="popup__input popup__input_fullname">
+        <input type="text" name="job" placeholder="О себе" value=""
+               class="popup__input popup__input_job popup__input_margin">
         <button type="submit" aria-label="сохранить" class="popup__button-submit">Сохранить</button>
       </form>
     </section>
@@ -80,5 +81,6 @@
     </section>
   </div>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>

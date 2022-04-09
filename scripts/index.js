@@ -20,25 +20,41 @@ const popupImageImg = popupImage.querySelector('.popup__image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 const popupImageBtnClose = popupImage.querySelector('.popup__button-close');
 
+const ESC_KEY = "Escape";
 
+
+
+function onDocumentKeyUpEsc(event) {
+  if (event.key === ESC_KEY) {
+    const popupList = Array.from(document.querySelectorAll('.popup'));
+    popupList.forEach((popup) => {
+      if (popup.classList.contains('popup_opened')) {
+        closePopup(popup);
+      }
+    });
+  }
+}
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', onDocumentKeyUpEsc);
+  popup.addEventListener('click', )
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keyup', onDocumentKeyUpEsc);
 }
 
-function popupEditProfileSubmitHandler (evt) {
-  evt.preventDefault();
+function popupEditProfileSubmitHandler (event) {
+  event.preventDefault();
   profileName.textContent = popupEditProfileInputName.value;
   profileJob.textContent = popupEditProfileInputJob.value;
   closePopup(popupEditProfile);
 }
 
-function popupAddCardSubmitHandler (evt) {
-  evt.preventDefault();
+function popupAddCardSubmitHandler (event) {
+  event.preventDefault();
   renderCard(popupAddCardInputPlaceLink.value, '', popupAddCardInputPlaceName.value);
   closePopup(popupAddCard);
 }
@@ -69,12 +85,12 @@ popupImageBtnClose.addEventListener('click', () => closePopup(popupImage));
 
 
 
-function invertHeartActive(evt) {
-  evt.target.classList.toggle('cards__heart_active');
+function invertHeartActive(event) {
+  event.target.classList.toggle('cards__heart_active');
 }
 
-function removeCard(evt) {
-  evt.target.parentElement.remove();
+function removeCard(event) {
+  event.target.parentElement.remove();
 }
 
 
@@ -92,8 +108,8 @@ function createCard (link, name) {
   trashElement.addEventListener('click', removeCard);
 
   const imageElement = cardElement.querySelector('.cards__img');
-  imageElement.addEventListener('click', (evt) => {
-    popupImageImg.setAttribute('src', evt.target.src);
+  imageElement.addEventListener('click', (event) => {
+    popupImageImg.setAttribute('src', event.target.src);
     popupImageTitle.textContent = name;
     openPopup(popupImage);
   });
@@ -134,3 +150,6 @@ const initialCards = [
 ];
 
 initialCards.forEach(item => renderCard(item.link, item.name));
+
+
+
