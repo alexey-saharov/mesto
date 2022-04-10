@@ -51,23 +51,60 @@
     </footer>
 
     <section class="popup popup_type_profile">
-      <form action="#" class="popup__container">
+      <form action="#" class="popup__form">
         <button type="button" aria-label="закрыть" class="popup__button-close"></button>
         <h2 class="popup__title">Редактировать</h2>
-        <input type="text" name="fullname" placeholder="Имя" value="" class="popup__input popup__input_fullname">
-        <input type="text" name="job" placeholder="О себе" value=""
-               class="popup__input popup__input_job popup__input_margin">
-        <button type="submit" aria-label="сохранить" class="popup__button-submit">Сохранить</button>
+        <input
+          type="text"
+          id="fullname"
+          name="fullname"
+          class="popup__input popup__input_fullname"
+          minlength="2"
+          maxlength="40"
+          required
+          placeholder="Имя"
+        />
+        <span id="fullname-error" class="popup__error"></span>
+        <input
+          type="text"
+          id="job"
+          name="job"
+          class="popup__input popup__input_job"
+          minlength="2"
+          maxlength="200"
+          required
+          placeholder="О себе"
+        />
+        <span id="job-error" class="popup__error popup__error_margin"></span>
+        <button type="submit" aria-label="сохранить" class="popup__button-submit">Сохранить
+        </button>
       </form>
     </section>
 
     <section class="popup popup_type_card-add">
-      <form action="#" class="popup__container">
+      <form action="#" class="popup__form">
         <button type="button" aria-label="закрыть" class="popup__button-close"></button>
         <h2 class="popup__title">Новое место</h2>
-        <input type="text" placeholder="Название" name="placename" value="" class="popup__input popup__input_placename">
-        <input type="text" placeholder="Ссылка на картинку" name="link" value="" class="popup__input
-          popup__input_placelink popup__input_margin">
+        <input
+          type="text"
+          id="placename"
+          name="placename"
+          class="popup__input popup__input_placename"
+          minlength="2"
+          maxlength="30"
+          required
+          placeholder="Название"
+        />
+        <span id="placename-error" class="popup__error"></span>
+        <input
+          type="url"
+          id="link"
+          name="link"
+          class="popup__input popup__input_placelink"
+          required
+          placeholder="Ссылка на картинку"
+        />
+        <span id="link-error" class="popup__error popup__error_margin"></span>
         <button type="submit" aria-label="создать" class="popup__button-submit">Создать</button>
       </form>
     </section>

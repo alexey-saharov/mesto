@@ -1,0 +1,9 @@
+.popup__error_margin {
+  margin-bottom: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__error_margin {
+    margin-bottom: 28px;
+  }
+}
