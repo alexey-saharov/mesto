@@ -39,7 +39,6 @@ const PARAMS = {
 
 
 function getOpenedPopup() {
-  //используется for, т.к. внутри метода forEach массива не работает return функции
   for (let i = 0; i < popupList.length; i++) {
     if (popupList[i].classList.contains('popup_opened')) {
       return popupList[i];
