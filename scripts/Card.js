@@ -42,7 +42,6 @@ class Card {
 
     this._heart.addEventListener('click', this._invertHeartActive);
     this._trash.addEventListener('click', this._removeCard);
-    // this._cardImage.addEventListener('click', this._handleClickImage);
     this._cardImage.addEventListener('click', () => this._handleClickImage(this._link, this._name));
 
     return this._card;
