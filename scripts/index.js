@@ -24,7 +24,6 @@ const popupImageImg = popupImage.querySelector('.popup__image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 
 const popupList = [popupEditProfile, popupAddCard, popupImage];
-const formList = [popupEditProfileForm, popupAddCardForm];
 
 const ESC_KEY = "Escape";
 
@@ -82,7 +81,9 @@ function handleSubmitPopupAddCard (event) {
 }
 
 btnEditProfile.addEventListener('click', () => {
-  popupEditProfileForm.reset();
+  // popupEditProfileForm.reset();
+
+
   popupEditProfileInputName.value = profileName.textContent;
   popupEditProfileInputJob.value = profileJob.textContent;
   popupEditProfileInputName.dispatchEvent(new Event('input'));
@@ -151,7 +152,12 @@ const initialCards = [
 
 initialCards.forEach((item) => renderCard(item.link, item.name));
 
+const addCardFormValidator = new FormValidator(PARAMS, popupAddCardForm);
+addCardFormValidator.enableValidation();
 
-formList.forEach((item) => {
-  new FormValidator(PARAMS, item).enableValidation();
-});
+const editProfileFormValidator = new FormValidator(PARAMS, popupEditProfileForm);
+editProfileFormValidator.enableValidation();
+
+// formList.forEach((item) => {
+//   new FormValidator(PARAMS, item).enableValidation();
+// });
