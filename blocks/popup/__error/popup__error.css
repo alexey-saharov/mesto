@@ -2,7 +2,7 @@
   visibility: hidden;
   margin-bottom: 3px;
   width: calc(282px - 2 * 22px);
-  min-height: 15px;
+  height: 29px;
   display: block;
   font-size: 12px;
   line-height: 15px;
