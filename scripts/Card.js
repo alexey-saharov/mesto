@@ -2,6 +2,7 @@ class Card {
   _link;
   _name;
   _cardTemplate;
+  _handleClickImage;
 
   _card;
   _cardImage;
@@ -9,10 +10,11 @@ class Card {
   _heart;
   _trash;
 
-  constructor(link, name, cardTemplate) {
+  constructor(link, name, cardTemplateSelector, handleClickImage) {
     this._link = link;
     this._name = name;
-    this._cardTemplate = cardTemplate;
+    this._cardTemplate = document.querySelector(cardTemplateSelector).content;
+    this._handleClickImage = handleClickImage;
   }
 
   _getCardMarkup() {
@@ -31,7 +33,7 @@ class Card {
     event.target.closest('.cards__item').remove();
   }
 
-  getCard(handleClickImage) {
+  getCard() {
     this._getCardMarkup();
 
     this._cardImage.src = this._link;
@@ -40,7 +42,8 @@ class Card {
 
     this._heart.addEventListener('click', this._invertHeartActive);
     this._trash.addEventListener('click', this._removeCard);
-    this._cardImage.addEventListener('click', handleClickImage);
+    // this._cardImage.addEventListener('click', this._handleClickImage);
+    this._cardImage.addEventListener('click', () => this._handleClickImage(this._link, this._name));
 
     return this._card;
   }

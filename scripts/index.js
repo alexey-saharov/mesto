@@ -7,7 +7,7 @@ const profileJob = document.querySelector('.profile__job-text');
 const btnEditProfile = document.querySelector('.profile__edit-button');
 const btnAddCard = document.querySelector('.profile__add-button');
 const cardsItems = document.querySelector('.cards__items');
-const cardTemplate = cardsItems.querySelector('#card__template').content;
+const cardTemplateSelector = '#card__template';
 
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupEditProfileForm = popupEditProfile.querySelector('.popup__form');
@@ -111,14 +111,14 @@ popupList.forEach(popupElement => {
 
 
 function renderCard (link, name) {
-  const handleCLickImage = () => {
+  const handleCLickImage = (link, name) => {
     popupImageImg.src = link;
     popupImageImg.alt = name;
     popupImageTitle.textContent = name;
     openPopup(popupImage);
   }
 
-  const card = new Card(link, name, cardTemplate).getCard(handleCLickImage);
+  const card = new Card(link, name, cardTemplateSelector, handleCLickImage).getCard();
   cardsItems.prepend(card);
 }
 
