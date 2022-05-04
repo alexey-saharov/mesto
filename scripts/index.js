@@ -23,7 +23,7 @@ const popupImage = document.querySelector('.popup_type_image');
 const popupImageImg = popupImage.querySelector('.popup__image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 
-const popupList = [popupEditProfile, popupAddCard, popupImage];
+const popupList = document.querySelectorAll('.popup');
 
 const ESC_KEY = "Escape";
 
@@ -62,7 +62,8 @@ function handleSubmitPopupEditProfile (event) {
 
 function handleSubmitPopupAddCard (event) {
   event.preventDefault();
-  renderCard(popupAddCardInputPlaceLink.value, popupAddCardInputPlaceName.value);
+  const card = renderCard(popupAddCardInputPlaceLink.value, popupAddCardInputPlaceName.value);
+  addCard(card);
   closePopup(popupAddCard);
 }
 
