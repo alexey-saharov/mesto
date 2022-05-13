@@ -1,40 +1,44 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {Popup} from './Popup.js';
+import {PopupWithImage} from './PopupWithImage.js';
+import {PopupWithForm} from './PopupWithForm.js';
+import {Section} from './Section.js';
+import {UserInfo} from './UserInfo.js';
+
+import {
+  profileName,
+  profileJob,
+  btnEditProfile,
+  btnAddCard,
+  cardsItemsSelector,
+  // cardsItems,
+  cardTemplateSelector,
+
+  popupProfileSelector,
+  popupEditProfile,
+  popupEditProfileForm,
+  popupEditProfileInputName,
+  popupEditProfileInputJob,
+
+  popupAddCard,
+  popupAddCardForm,
+  popupAddCardInputPlaceName,
+  popupAddCardInputPlaceLink,
+
+  popupImage,
+  popupImageImg,
+  popupImageTitle,
+
+  popupList,
+  ESC_KEY,
+  PARAMS,
+
+  initialCards
+} from '../utils/constants.js';
 
 
-const profileName = document.querySelector('.profile__name-text');
-const profileJob = document.querySelector('.profile__job-text');
-const btnEditProfile = document.querySelector('.profile__edit-button');
-const btnAddCard = document.querySelector('.profile__add-button');
-const cardsItems = document.querySelector('.cards__items');
-const cardTemplateSelector = '#card__template';
 
-const popupEditProfile = document.querySelector('.popup_type_profile');
-const popupEditProfileForm = popupEditProfile.querySelector('.popup__form');
-const popupEditProfileInputName = popupEditProfile.querySelector('.popup__input_fullname');
-const popupEditProfileInputJob = popupEditProfile.querySelector('.popup__input_job');
-
-const popupAddCard = document.querySelector('.popup_type_card-add');
-const popupAddCardForm = popupAddCard.querySelector('.popup__form');
-const popupAddCardInputPlaceName = popupAddCard.querySelector('.popup__input_placename');
-const popupAddCardInputPlaceLink = popupAddCard.querySelector('.popup__input_placelink');
-
-const popupImage = document.querySelector('.popup_type_image');
-const popupImageImg = popupImage.querySelector('.popup__image');
-const popupImageTitle = popupImage.querySelector('.popup__image-title');
-
-const popupList = document.querySelectorAll('.popup');
-
-const ESC_KEY = "Escape";
-
-export const PARAMS = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-submit',
-  inactiveButtonClass: 'popup__button-submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
 
 
 const handleEscKey = (event) => {
@@ -76,6 +80,21 @@ btnEditProfile.addEventListener('click', () => {
 popupEditProfile.addEventListener('submit', handleSubmitPopupEditProfile);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 btnAddCard.addEventListener('click', () => {
   popupAddCardForm.reset();
   addCardFormValidator.clearErrors();
@@ -99,48 +118,27 @@ const handleCLickImage = (link, name) => {
   openPopup(popupImage);
 }
 
-function renderCard (link, name) {
-  return new Card(link, name, cardTemplateSelector, handleCLickImage).getCard();
-}
+const cardList = new Section({
+    items: initialCards,
+    renderer: ({ link, name }) => {
+      const card = new Card(link, name, cardTemplateSelector, handleCLickImage).getCard();
+      cardList.addItemPrepend(card);
+    }
+  },
+  cardsItemsSelector
+);
 
-function addCard (card) {
-  cardsItems.prepend(card);
-}
+cardList.renderItems();
 
-const initialCards = [
-  {
-    name: 'Судак',
-    link: './images/cards-sudak.webp'
-  },
-  {
-    name: 'Санкт-Петербург',
-    link: './images/cards-saint-petersburg.webp'
-  },
-  {
-    name: 'Сочи',
-    link: './images/cards-sochi.webp'
-  },
-  {
-    name: 'Иркутская область',
-    link: './images/cards-irkutskaya-obl.webp'
-  },
-  {
-    name: 'Алтай',
-    link: './images/cards-altay.webp'
-  },
-  {
-    name: 'Нальчик',
-    link: './images/cards-nalchik.webp'
-  }
-];
 
-initialCards.forEach((item) => {
-  const card = renderCard(item.link, item.name);
-  addCard(card);
-});
+
 
 const addCardFormValidator = new FormValidator(PARAMS, popupAddCardForm);
 addCardFormValidator.enableValidation();
 
 const editProfileFormValidator = new FormValidator(PARAMS, popupEditProfileForm);
 editProfileFormValidator.enableValidation();
+
+
+// Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick.
+// Эта функция должна открывать попап с картинкой при клике на карточку.

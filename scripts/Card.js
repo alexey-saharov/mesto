@@ -1,4 +1,4 @@
-class Card {
+export class Card {
   _link;
   _name;
   _cardTemplate;
@@ -47,5 +47,3 @@ class Card {
     return this._card;
   }
 }
-
-export default Card;

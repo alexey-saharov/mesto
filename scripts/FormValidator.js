@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
   _params;
   _form;
 
@@ -81,5 +81,3 @@ class FormValidator {
     this._setEventListeners();
   }
 }
-
-export default FormValidator;
