@@ -9,31 +9,31 @@ import {PARAMS, initialCards} from '../utils/constants.js';
 
 
 
-function handleSubmitPopupProfile (event, inputValues) {
+function handleSubmitPopupUser (event, inputValues) {
   event.preventDefault();
 
   userInfo.setUserInfo({
     userName: inputValues.fullname,
     userJob: inputValues.job
   });
-  popupProfile.close();
+  popupUser.close();
 }
 
-const popupProfile = new PopupWithForm(PARAMS.popupProfileSelector, handleSubmitPopupProfile, PARAMS.formSelector);
+const popupUser = new PopupWithForm(PARAMS.popupUserSelector, handleSubmitPopupUser, PARAMS.formSelector);
 const userInfo = new UserInfo({
   userNameSelector: PARAMS.userNameSelector,
   userJobSelector: PARAMS.userJobSelector
 });
 
-const buttonProfile = document.querySelector(PARAMS.buttonProfileSelector);
-buttonProfile.addEventListener('click', () => {
+const buttonUser = document.querySelector(PARAMS.buttonUserSelector);
+buttonUser.addEventListener('click', () => {
   const { userName, userJob } = userInfo.getUserInfo();
-  popupProfile.setInputValue(PARAMS.popupInputNameSelector, userName);
-  popupProfile.setInputValue(PARAMS.popupInputJobSelector, userJob);
-  popupProfile.open(PARAMS.popupOpenedClass);
-  editProfileFormValidator.clearErrors();
+  popupUser.setInputValue(PARAMS.popupInputNameSelector, userName);
+  popupUser.setInputValue(PARAMS.popupInputJobSelector, userJob);
+  popupUser.open(PARAMS.popupOpenedClass);
+  editUserFormValidator.clearErrors();
 });
-popupProfile.setEventListeners(PARAMS.popupButtonCloseClass);
+popupUser.setEventListeners(PARAMS.popupButtonCloseClass);
 
 
 
@@ -86,6 +86,6 @@ const popupAddCardForm = document.querySelector(PARAMS.popupAddCardSelector).que
 const addCardFormValidator = new FormValidator(PARAMS, popupAddCardForm);
 addCardFormValidator.enableValidation();
 
-const popupEditProfileForm = document.querySelector(PARAMS.popupProfileSelector).querySelector(PARAMS.formSelector);
-const editProfileFormValidator = new FormValidator(PARAMS, popupEditProfileForm);
-editProfileFormValidator.enableValidation();
+const popupEditUserForm = document.querySelector(PARAMS.popupUserSelector).querySelector(PARAMS.formSelector);
+const editUserFormValidator = new FormValidator(PARAMS, popupEditUserForm);
+editUserFormValidator.enableValidation();

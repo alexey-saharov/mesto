@@ -1,23 +1,21 @@
 export const ESC_KEY = 'Escape';
 
 export const PARAMS = {
+  userNameSelector: '.profile__name-text',
+  userJobSelector: '.profile__job-text',
+  buttonUserSelector: '.profile__edit-button',
+  buttonAddCardSelector: '.profile__add-button',
+
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button-submit',
   inactiveButtonClass: 'popup__button-submit_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible',
-
-  userNameSelector: '.profile__name-text',
-  userJobSelector: '.profile__job-text',
-
-  buttonProfileSelector: '.profile__edit-button',
-  buttonAddCardSelector: '.profile__add-button',
-
   popupOpenedClass: 'popup_opened',
   popupButtonCloseClass: 'popup__button-close',
 
-  popupProfileSelector: '.popup_type_profile',
+  popupUserSelector: '.popup_type_profile',
   popupInputNameSelector: '.popup__input_fullname',
   popupInputJobSelector: '.popup__input_job',
 
@@ -57,4 +55,3 @@ export const initialCards = [
     link: './images/cards-nalchik.webp'
   }
 ];
-
