@@ -9,7 +9,27 @@ import {PARAMS, initialCards} from '../utils/constants.js';
 
 
 
-function handleSubmitPopupUser (event, inputValues) {
+function handleCardClick(link, name) {
+  popupImage.open(link, name, PARAMS.popupOpenedClass);
+}
+
+function addCardList(itemList) {
+  const cardList = new Section({
+      items: itemList,
+      renderer: ({ link, name }) => {
+        const card = new Card(link, name, PARAMS.cardTemplateSelector, handleCardClick).getCard();
+        cardList.addItemPrepend(card);
+      }
+    },
+    PARAMS.cardsItemsSelector
+  );
+  cardList.renderItems();
+}
+addCardList(initialCards);
+
+
+
+function handleSubmitPopupUser(event, inputValues) {
   event.preventDefault();
 
   userInfo.setUserInfo({
@@ -59,26 +79,7 @@ const popupImage = new PopupWithImage({
   popupImageImgSelector: PARAMS.popupImageImgSelector,
   popupImageTitleSelector: PARAMS.popupImageTitleSelector
 });
-const handleCardClick = (link, name) => {
-  popupImage.open(link, name, PARAMS.popupOpenedClass);
-}
 popupImage.setEventListeners(PARAMS.popupButtonCloseClass);
-
-
-
-function addCardList(itemList) {
-  const cardList = new Section({
-      items: itemList,
-      renderer: ({ link, name }) => {
-        const card = new Card(link, name, PARAMS.cardTemplateSelector, handleCardClick).getCard();
-        cardList.addItemPrepend(card);
-      }
-    },
-    PARAMS.cardsItemsSelector
-  );
-  cardList.renderItems();
-}
-addCardList(initialCards);
 
 
 
