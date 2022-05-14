@@ -1,17 +1,3 @@
-
-export const buttonProfile = document.querySelector('.profile__edit-button');
-//export const btnEditProfile = document.querySelector('.profile__edit-button');
-export const btnAddCard = document.querySelector('.profile__add-button');
-export const cardsItemsSelector = '.cards__items';
-// export const cardsItems = document.querySelector('.cards__items');
-export const cardTemplateSelector = '#card__template';
-
-
-export const popupAddCard = document.querySelector('.popup_type_card-add');
-export const popupAddCardForm = popupAddCard.querySelector('.popup__form');
-export const popupAddCardInputPlaceName = popupAddCard.querySelector('.popup__input_placename');
-export const popupAddCardInputPlaceLink = popupAddCard.querySelector('.popup__input_placelink');
-
 export const ESC_KEY = 'Escape';
 
 export const PARAMS = {
@@ -25,6 +11,9 @@ export const PARAMS = {
   userNameSelector: '.profile__name-text',
   userJobSelector: '.profile__job-text',
 
+  buttonProfileSelector: '.profile__edit-button',
+  buttonAddCardSelector: '.profile__add-button',
+
   popupOpenedClass: 'popup_opened',
   popupButtonCloseClass: 'popup__button-close',
 
@@ -32,9 +21,14 @@ export const PARAMS = {
   popupInputNameSelector: '.popup__input_fullname',
   popupInputJobSelector: '.popup__input_job',
 
+  popupAddCardSelector: '.popup_type_card-add',
+
   popupImageSelector: '.popup_type_image',
   popupImageImgSelector: '.popup__image',
-  popupImageTitleSelector: '.popup__image-title'
+  popupImageTitleSelector: '.popup__image-title',
+
+  cardsItemsSelector: '.cards__items',
+  cardTemplateSelector:'#card__template'
 };
 
 export const initialCards = [
