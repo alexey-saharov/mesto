@@ -1,15 +1,21 @@
 export class UserInfo {
-  constructor() {
-    // Принимает в конструктор объект с селекторами двух элементов:
-    // элемента имени пользователя и элемента информации о себе.
+  _userNameElement;
+  _userJobElement;
+
+  constructor({ userNameSelector, userJobSelector }) {
+    this._userNameElement = document.querySelector(userNameSelector);
+    this._userJobElement = document.querySelector(userJobSelector);
   }
 
   getUserInfo() {
-    // возвращает объект с данными пользователя.
-    // Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
+    return {
+      userName: this._userNameElement.textContent,
+      userJob: this._userJobElement.textContent
+    };
   }
 
-  setUserInfo() {
-    // принимает новые данные пользователя и добавляет их на страницу.
+  setUserInfo({ userName, userJob }) {
+    this._userNameElement.textContent = userName;
+    this._userJobElement.textContent = userJob;
   }
 }

@@ -1,9 +1,19 @@
 import {Popup} from './Popup.js';
 
 export class PopupWithImage extends Popup {
-  open() {
-    //нужно вставлять в попап картинку с src изображения и подписью к картинке.
+  _imageElement;
+  _titleElement;
+
+  constructor({ popupSelector, popupImageImgSelector, popupImageTitleSelector }) {
+      super(popupSelector);
+      this._imageElement = document.querySelector(popupImageImgSelector);
+      this._titleElement = document.querySelector(popupImageTitleSelector);
   }
 
-
+  open(link, name, popupOpenedClass) {
+    super.open(popupOpenedClass);
+    this._imageElement.src = link;
+    this._imageElement.alt = name;
+    this._titleElement.textContent = name;
+  }
 }
