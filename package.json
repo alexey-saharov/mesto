@@ -1,5 +1,5 @@
 {
-  "name": "yandex_praktikum",
+  "name": "mesto",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,8 @@
     "build": "webpack --mode production",
     "dev": "webpack serve"
   },
-  "author": "Aleksey Sakharov",
-  "license": "ISC",
+  "author": "Aleksey Saharov",
+  "license": "",
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
@@ -20,7 +20,7 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss-loader": "^6.2.1",
-    "webpack": "^5.72.0",
+    "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
   },

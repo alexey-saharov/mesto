@@ -29,29 +29,36 @@ export const PARAMS = {
   cardTemplateSelector:'#card__template'
 };
 
+const sudak = new URL('../images/cards-sudak.jpg', import.meta.url);
+const saintPetersburg = new URL('../images/cards-saint-petersburg.jpg', import.meta.url);
+const sochi = new URL('../images/cards-sochi.jpg', import.meta.url);
+const irkutskayaObl = new URL('../images/cards-irkutskaya-obl.jpg', import.meta.url);
+const altay = new URL('../images/cards-altay.jpg', import.meta.url);
+const nalchik = new URL('../images/cards-nalchik.jpg', import.meta.url);
+
 export const initialCards = [
   {
     name: 'Судак',
-    link: './images/cards-sudak.webp'
+    link: sudak
   },
   {
     name: 'Санкт-Петербург',
-    link: './images/cards-saint-petersburg.webp'
+    link: saintPetersburg
   },
   {
     name: 'Сочи',
-    link: './images/cards-sochi.webp'
+    link: sochi
   },
   {
     name: 'Иркутская область',
-    link: './images/cards-irkutskaya-obl.webp'
+    link: irkutskayaObl
   },
   {
     name: 'Алтай',
-    link: './images/cards-altay.webp'
+    link: altay
   },
   {
     name: 'Нальчик',
-    link: './images/cards-nalchik.webp'
+    link: nalchik
   }
 ];
