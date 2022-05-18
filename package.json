@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "rimraf dist && webpack --mode production",
     "dev": "webpack serve"
   },
   "author": "Aleksey Saharov",
@@ -25,6 +25,7 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
-    "core-js": "^3.22.5"
+    "core-js": "^3.22.5",
+    "rimraf": "^3.0.2"
   }
 }

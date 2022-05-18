@@ -25,12 +25,14 @@ export class Card {
     this._trash = this._card.querySelector('.cards__trash');
   }
 
-  _invertHeartActive(event) {
-    event.target.classList.toggle('cards__heart_active');
+  _invertHeartActive() {
+    this._heart.classList.toggle('cards__heart_active');
   }
 
-  _removeCard(event) {
-    event.target.closest('.cards__item').remove();
+  _removeCard() {
+    // event.target.closest('.cards__item').remove();
+    this._card.remove();
+    this._card = null;
   }
 
   getCard() {
@@ -40,8 +42,8 @@ export class Card {
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
 
-    this._heart.addEventListener('click', this._invertHeartActive);
-    this._trash.addEventListener('click', this._removeCard);
+    this._heart.addEventListener('click', this._invertHeartActive.bind(this));
+    this._trash.addEventListener('click', this._removeCard.bind(this));
     this._cardImage.addEventListener('click', () => this._handleClickImage(this._link, this._name));
 
     return this._card;

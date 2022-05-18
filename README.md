@@ -24,7 +24,7 @@ https://alexey-saharov.github.io/mesto/
 * JavaScript
 * валидация форм
 * ООП
-* WebPack
+* [WebPack](https://webpack.js.org/)
 
 
 ### Системные требования:
