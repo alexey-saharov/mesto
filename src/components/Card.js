@@ -30,7 +30,6 @@ export class Card {
   }
 
   _removeCard() {
-    // event.target.closest('.cards__item').remove();
     this._card.remove();
     this._card = null;
   }

@@ -9,36 +9,30 @@ import {UserInfo} from '../components/UserInfo.js';
 
 import {PARAMS, initialCards} from '../utils/constants.js';
 
-
-
 const buttonUser = document.querySelector(PARAMS.buttonUserSelector);
 const buttonAddCard = document.querySelector(PARAMS.buttonAddCardSelector);
 const popupAddCardForm = document.querySelector(PARAMS.popupAddCardSelector).querySelector(PARAMS.formSelector);
 const popupEditUserForm = document.querySelector(PARAMS.popupUserSelector).querySelector(PARAMS.formSelector);
 
-
-
 function createCard({ link, name }) {
-  const card = new Card(link, name, PARAMS.cardTemplateSelector, handleCardClick).getCard();
-  cardList.addItemPrepend(card);
+  return new Card(link, name, PARAMS.cardTemplateSelector, handleCardClick).getCard();
 }
 
 const cardList = new Section({
     items: initialCards,
-    renderer: createCard
+    renderer: ({ link, name }) => {
+      const card = createCard({ link, name });
+      cardList.addItemPrepend(card);
+    }
   },
   PARAMS.cardsItemsSelector
 );
 
 cardList.renderItems();
 
-
-
 function handleCardClick(link, name) {
   popupImage.open(link, name);
 }
-
-
 
 function handleSubmitPopupUser(inputValues) {
   userInfo.setUserInfo({
@@ -54,16 +48,13 @@ const userInfo = new UserInfo({
   userJobSelector: PARAMS.userJobSelector
 });
 
-
-
 function handleSubmitPopupAddCard (inputValues) {
-  createCard(inputValues);
+  const card = createCard(inputValues);
+  cardList.addItemPrepend(card);
   popupAddCard.close();
 }
 
 const popupAddCard = new PopupWithForm(PARAMS.popupAddCardSelector, handleSubmitPopupAddCard, PARAMS.formSelector);
-
-
 
 const popupImage = new PopupWithImage({
   popupSelector: PARAMS.popupImageSelector,
@@ -71,12 +62,8 @@ const popupImage = new PopupWithImage({
   popupImageTitleSelector: PARAMS.popupImageTitleSelector
 });
 
-
-
 const addCardFormValidator = new FormValidator(PARAMS, popupAddCardForm);
 const editUserFormValidator = new FormValidator(PARAMS, popupEditUserForm);
-
-
 
 buttonUser.addEventListener('click', () => {
   const { userName, userJob } = userInfo.getUserInfo();
@@ -87,19 +74,13 @@ buttonUser.addEventListener('click', () => {
 });
 popupUser.setEventListeners();
 
-
-
 buttonAddCard.addEventListener('click', () => {
   popupAddCard.open();
   addCardFormValidator.clearErrors();
 });
 popupAddCard.setEventListeners();
 
-
-
 popupImage.setEventListeners();
-
-
 
 editUserFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
