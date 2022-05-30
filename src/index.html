@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Место</title>
-<!--  <link rel="stylesheet" href="./pages/index.css">-->
+  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body>
   <div class="root">
@@ -17,15 +17,15 @@
     <main class="content">
       <section class="profile root__section profile_margin">
         <div class="profile__card">
-          <img src="<%=require('./images/profile-Jacques-Yves_Cousteau.jpg')%>" alt="фото профиля"
-               class="profile__photo">
-          <!-- <img src='./images/profile-Jacques-Yves_Cousteau.jpg' alt="фото профиля" class="profile__photo"> -->
+<!--          <img src="<%=require('./images/profile-Jacques-Yves_Cousteau.jpg')%>" alt="фото профиля"-->
+<!--               class="profile__photo">-->
+           <img src='./images/profile-Jacques-Yves_Cousteau.jpg' alt="фото профиля" class="profile__photo">
           <div class="profile__text">
             <div class="profile__name">
-              <h1 class="profile__name-text">Жак-Ив Кусто</h1>
+              <h1 class="profile__name-text"></h1>
               <button aria-label="редактировать" class="profile__edit-button"></button>
             </div>
-            <p class="profile__job-text">Исследователь океана</p>
+            <p class="profile__job-text"></p>
           </div>
         </div>
         <button aria-label="добавить" class="profile__add-button"></button>
@@ -38,7 +38,10 @@
               <img src="#" alt="" class="cards__img">
               <div class="cards__description">
                 <h3 class="cards__title"></h3>
-                <button aria-label="добавить в избранное" class="cards__heart"></button>
+                <div class="cards__likes">
+                  <button aria-label="добавить в избранное" class="cards__heart"></button>
+                  <p class="cards__count-likes"></p>
+                </div>
               </div>
               <button aria-label="удалить" class="cards__trash"></button>
             </li>
@@ -117,6 +120,6 @@
       </figure>
     </section>
   </div>
-<!--<script type="module" src="./pages/index.js"></script>-->
+<script type="module" src="./pages/index.js"></script>
 </body>
 </html>

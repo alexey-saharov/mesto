@@ -9,10 +9,9 @@ export class Popup {
     this._popup = document.querySelector(popupSelector);
     this._popupOpenedClass = PARAMS.popupOpenedClass;
     this._popupButtonCloseClass = PARAMS.popupButtonCloseClass;
-    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
-  _handleEscClose(event) {
+  _handleEscClose = (event) => {
     if (event.key === ESC_KEY) {
       this.close();
     }

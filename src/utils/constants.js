@@ -3,6 +3,7 @@ export const ESC_KEY = 'Escape';
 export const PARAMS = {
   userNameSelector: '.profile__name-text',
   userJobSelector: '.profile__job-text',
+  userAvatarSelector: '.profile__photo',
   buttonUserSelector: '.profile__edit-button',
   buttonAddCardSelector: '.profile__add-button',
 
@@ -26,39 +27,8 @@ export const PARAMS = {
   popupImageTitleSelector: '.popup__image-title',
 
   cardsItemsSelector: '.cards__items',
-  cardTemplateSelector:'#card__template'
+  cardTemplateSelector:'#card__template',
+
+  serverUrl: 'https://mesto.nomoreparties.co/v1/cohort-42',
+  token: '29779b63-56c9-48f1-bf2c-946b66c63b59',
 };
-
-const sudak = new URL('../images/cards-sudak.jpg', import.meta.url);
-const saintPetersburg = new URL('../images/cards-saint-petersburg.jpg', import.meta.url);
-const sochi = new URL('../images/cards-sochi.jpg', import.meta.url);
-const irkutskayaObl = new URL('../images/cards-irkutskaya-obl.jpg', import.meta.url);
-const altay = new URL('../images/cards-altay.jpg', import.meta.url);
-const nalchik = new URL('../images/cards-nalchik.jpg', import.meta.url);
-
-export const initialCards = [
-  {
-    name: 'Судак',
-    link: sudak
-  },
-  {
-    name: 'Санкт-Петербург',
-    link: saintPetersburg
-  },
-  {
-    name: 'Сочи',
-    link: sochi
-  },
-  {
-    name: 'Иркутская область',
-    link: irkutskayaObl
-  },
-  {
-    name: 'Алтай',
-    link: altay
-  },
-  {
-    name: 'Нальчик',
-    link: nalchik
-  }
-];
