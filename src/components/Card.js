@@ -1,9 +1,12 @@
+import {PARAMS} from "../utils/constants.js";
+
 export class Card {
   _id;
   _link;
   _name;
   _havingTrash;
   _countLikes;
+  _havingLikeActive;
   _cardTemplate;
   _handleClickImage;
   _handleClickLike;
@@ -16,18 +19,21 @@ export class Card {
   _countLikesElement;
   _trashElement;
 
-  constructor(id, link, name, havingTrash, countLikes, cardTemplateSelector, handleClickImage, handleClickLike, handleClickRemove) {
+  constructor(id, link, name, havingTrash, havingLikeActive, countLikes, cardTemplateSelector, handleClickImage,
+              handleClickLike, handleClickRemove) {
     this._id = id;
     this._link = link;
     this._name = name;
     this._havingTrash = havingTrash;
     this._countLikes = countLikes;
+    this._havingLikeActive = havingLikeActive;
     this._cardTemplate = document.querySelector(cardTemplateSelector).content;
     this._handleClickImage = handleClickImage;
     this._handleClickLike = handleClickLike;
     this._handleClickRemove = handleClickRemove;
   }
 
+  //todo поменять константы на PARAMS
   _getCardMarkup() {
     this._cardElement = this._cardTemplate.querySelector('.cards__item').cloneNode(true);
     this._cardImageElement = this._cardElement.querySelector('.cards__img');
@@ -48,9 +54,12 @@ export class Card {
       this._trashElement = null;
     }
     this._countLikesElement.textContent = (!this._countLikes) ? '' : this._countLikes;
+    if (this._havingLikeActive) {
+      this._heartElement.classList.add(PARAMS.cardLikeClass);
+    }
 
-
-    this._heartElement.addEventListener('click', () => this._handleClickLike(this._heartElement, this._countLikesElement));
+    this._heartElement.addEventListener('click', () => this._handleClickLike(this._id, this._heartElement,
+      this._countLikesElement));
     this._cardImageElement.addEventListener('click', () => this._handleClickImage(this._link, this._name));
     if (this._havingTrash) {
       this._trashElement.addEventListener('click', () => this._handleClickRemove(this._id, this._cardElement));

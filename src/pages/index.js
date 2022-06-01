@@ -9,6 +9,7 @@ import {UserInfo} from '../components/UserInfo.js';
 import {Api} from '../components/Api.js';
 
 import {PARAMS} from '../utils/constants.js';
+import {PopupWithConfirmation} from "../components/PopupWithConfirmation.js";
 
 const buttonUser = document.querySelector(PARAMS.buttonUserSelector);
 const buttonAddCard = document.querySelector(PARAMS.buttonAddCardSelector);
@@ -23,40 +24,51 @@ const api = new Api({
   }
 });
 
-function createCard({ id, link, name, havingTrash, countLikes }) {
-  return new Card(id, link, name, havingTrash, countLikes, PARAMS.cardTemplateSelector, handleCardClick, handleCardLikeCLick,
-    handleCardRemoveCLick).getCard();
+function createCard({ id, link, name, havingTrash, havingLikeActive, countLikes }) {
+  return new Card(id, link, name, havingTrash, havingLikeActive, countLikes, PARAMS.cardTemplateSelector,
+    handleCardClick, handleCardLikeCLick, handleCardRemoveCLick).getCard();
 }
 
 function handleCardClick(link, name) {
   popupImage.open(link, name);
 }
 
-// todo если лайкнул карточку раньше, то показать это при начальной загрузке карточек
-
-function handleCardLikeCLick(heartElement, countLikesElement) {
-  //добавить или убрать 1 лайк на сервере
-    //отобразить итоговое кол-во на странице
-
-
-  let count = +countLikesElement.textContent; // todo брать из сервера, а не из верстки
-  if (heartElement.classList.contains(PARAMS.cardLikeClass)) {
-    count--;
-    heartElement.classList.remove(PARAMS.cardLikeClass);
-  } else {
-    count++;
-    heartElement.classList.add(PARAMS.cardLikeClass);
+function handleCardLikeCLick(idCard, heartElement, countLikesElement) {
+  function showCountLikes(count) {
+    countLikesElement.textContent = (!count) ? '' : count;
   }
-  countLikesElement.textContent = (!count) ? '' : count;
+  if (heartElement.classList.contains(PARAMS.cardLikeClass)) {
+    api.deleteLikeCard({ _id: idCard })
+      .then(res => {
+        showCountLikes(res.likes.length);
+        heartElement.classList.remove(PARAMS.cardLikeClass);
+      })
+      .catch(err => console.log(err));
+  } else {
+    api.likeCard({ _id: idCard })
+      .then(res => {
+        showCountLikes(res.likes.length);
+        heartElement.classList.add(PARAMS.cardLikeClass);
+      })
+      .catch(err => console.log(err));
+  }
 }
 
-function handleCardRemoveCLick(id, cardElement) {
-  api.deleteCard({ _id: id})
+function handleSubmitPopupConfirmation(idCard, cardElement) {
+  api.deleteCard({ _id: idCard})
     .then(() => {
+      popupConfirmation.close();
       cardElement.remove();
       cardElement = null;
     })
     .catch(err => console.log(err));
+}
+
+const popupConfirmation = new PopupWithConfirmation(PARAMS.popupConfirmationSelector, PARAMS.formSelector);
+
+function handleCardRemoveCLick(id, cardElement) {
+  popupConfirmation.open(id, cardElement, handleSubmitPopupConfirmation);
+  popupConfirmation.setEventListeners();
 }
 
 function handleSubmitPopupUser(inputValues) {
@@ -100,7 +112,9 @@ api.getUser()
             items: res,
             renderer: ({ _id, link, name, owner, likes }) => {
               const havingTrash = (owner._id === myUserId);
-              const card = createCard({ id: _id, link, name, havingTrash, countLikes: likes.length });
+              const havingLikeActive = !!likes.find(item => item._id === myUserId);
+              const card = createCard({ id: _id, link, name, havingTrash,
+                havingLikeActive, countLikes: likes.length });
               cardList.addItemAppend(card);
             }
           },
@@ -121,8 +135,9 @@ function handleSubmitPopupAddCard (inputValues) {
     .then(res => {
       const idCard = res._id;
       const havingTrash = true;
+      const havingLikeActive = false;
       const card = createCard({ id: idCard, link: inputValues.link, name: inputValues.name,
-        havingTrash, countLikes: 0 });
+        havingTrash, havingLikeActive, countLikes: 0 });
       cardList.addItemPrepend(card);
       popupAddCard.close();
     })
@@ -154,7 +169,6 @@ buttonAddCard.addEventListener('click', () => {
   addCardFormValidator.clearErrors();
 });
 popupAddCard.setEventListeners();
-
 popupImage.setEventListeners();
 
 editUserFormValidator.enableValidation();

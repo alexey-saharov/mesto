@@ -26,6 +26,8 @@ export const PARAMS = {
   popupImageImgSelector: '.popup__image',
   popupImageTitleSelector: '.popup__image-title',
 
+  popupConfirmationSelector: '.popup_type_confirmation',
+
   cardsItemsSelector: '.cards__items',
   cardTemplateSelector:'#card__template',
   cardLikeClass: 'cards__heart_active',

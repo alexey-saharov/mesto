@@ -71,11 +71,10 @@ export class Api {
       .then(this._handleResponse)
   }
 
-  deleteLikeCard(card) {
-    return fetch(`${this._url}/cards`,{
+  deleteLikeCard({ _id }) {
+    return fetch(`${this._url}/cards/${_id}/likes`,{
       method: 'DELETE',
       headers: this._headers,
-      body: JSON.stringify(card),
     })
       .then(this._handleResponse)
   }
