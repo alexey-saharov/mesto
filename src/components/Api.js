@@ -55,20 +55,18 @@ export class Api {
       .then(this._handleResponse)
   }
 
-  deleteCard(card) {
-    return fetch(`${this._url}/cards`,{
+  deleteCard({ _id }) {
+    return fetch(`${this._url}/cards/${_id}`,{
       method: 'DELETE',
       headers: this._headers,
-      body: JSON.stringify(card),
     })
       .then(this._handleResponse)
   }
 
-  likeCard(card) {
-    return fetch(`${this._url}/cards`,{
+  likeCard({ _id }) {
+    return fetch(`${this._url}/cards/${_id}/likes`,{
       method: 'PUT',
       headers: this._headers,
-      body: JSON.stringify(card),
     })
       .then(this._handleResponse)
   }

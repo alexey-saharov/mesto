@@ -23,12 +23,40 @@ const api = new Api({
   }
 });
 
-function createCard({ link, name }) {
-  return new Card(link, name, PARAMS.cardTemplateSelector, handleCardClick).getCard();
+function createCard({ id, link, name, havingTrash, countLikes }) {
+  return new Card(id, link, name, havingTrash, countLikes, PARAMS.cardTemplateSelector, handleCardClick, handleCardLikeCLick,
+    handleCardRemoveCLick).getCard();
 }
 
 function handleCardClick(link, name) {
   popupImage.open(link, name);
+}
+
+// todo если лайкнул карточку раньше, то показать это при начальной загрузке карточек
+
+function handleCardLikeCLick(heartElement, countLikesElement) {
+  //добавить или убрать 1 лайк на сервере
+    //отобразить итоговое кол-во на странице
+
+
+  let count = +countLikesElement.textContent; // todo брать из сервера, а не из верстки
+  if (heartElement.classList.contains(PARAMS.cardLikeClass)) {
+    count--;
+    heartElement.classList.remove(PARAMS.cardLikeClass);
+  } else {
+    count++;
+    heartElement.classList.add(PARAMS.cardLikeClass);
+  }
+  countLikesElement.textContent = (!count) ? '' : count;
+}
+
+function handleCardRemoveCLick(id, cardElement) {
+  api.deleteCard({ _id: id})
+    .then(() => {
+      cardElement.remove();
+      cardElement = null;
+    })
+    .catch(err => console.log(err));
 }
 
 function handleSubmitPopupUser(inputValues) {
@@ -52,6 +80,9 @@ const userInfo = new UserInfo({
   userAvatarSelector: PARAMS.userAvatarSelector,
 });
 
+
+let cardList = {};
+
 api.getUser()
   .then(res => {
     userInfo.setUserInfo({
@@ -61,24 +92,24 @@ api.getUser()
     userInfo.setUserAvatar({
       userAvatarSrc: res.avatar,
     });
+    const myUserId = res._id;
 
-  })
-  .catch(err => err);
+    api.getInitialCards()
+      .then(res => {
+        cardList = new Section({
+            items: res,
+            renderer: ({ _id, link, name, owner, likes }) => {
+              const havingTrash = (owner._id === myUserId);
+              const card = createCard({ id: _id, link, name, havingTrash, countLikes: likes.length });
+              cardList.addItemAppend(card);
+            }
+          },
+          PARAMS.cardsItemsSelector
+        );
+        cardList.renderItems();
+      })
+      .catch(err => err);
 
-let cardList = {};
-
-api.getInitialCards()
-  .then(res => {
-    cardList = new Section({
-        items: res,
-        renderer: ({ link, name }) => {
-          const card = createCard({ link, name });
-          cardList.addItemPrepend(card);
-        }
-      },
-      PARAMS.cardsItemsSelector
-    );
-    cardList.renderItems();
   })
   .catch(err => err);
 
@@ -87,11 +118,15 @@ function handleSubmitPopupAddCard (inputValues) {
     name: inputValues.name,
     link: inputValues.link
   })
+    .then(res => {
+      const idCard = res._id;
+      const havingTrash = true;
+      const card = createCard({ id: idCard, link: inputValues.link, name: inputValues.name,
+        havingTrash, countLikes: 0 });
+      cardList.addItemPrepend(card);
+      popupAddCard.close();
+    })
     .catch(err => console.log(err));
-
-  const card = createCard(inputValues);
-  cardList.addItemPrepend(card);
-  popupAddCard.close();
 }
 
 const popupAddCard = new PopupWithForm(PARAMS.popupAddCardSelector, handleSubmitPopupAddCard, PARAMS.formSelector);

@@ -28,6 +28,7 @@ export const PARAMS = {
 
   cardsItemsSelector: '.cards__items',
   cardTemplateSelector:'#card__template',
+  cardLikeClass: 'cards__heart_active',
 
   serverUrl: 'https://mesto.nomoreparties.co/v1/cohort-42',
   token: '29779b63-56c9-48f1-bf2c-946b66c63b59',
