@@ -3,7 +3,6 @@ export class Section {
   _renderer;
   _container;
 
-
   constructor({ items, renderer }, containerSelector) {
     this._initialArray = items;
     this._renderer = renderer;

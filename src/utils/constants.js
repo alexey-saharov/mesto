@@ -4,6 +4,7 @@ export const PARAMS = {
   userNameSelector: '.profile__name-text',
   userJobSelector: '.profile__job-text',
   userAvatarSelector: '.profile__photo',
+  userAvatarButtonSelector: '.profile__edit-avatar',
   buttonUserSelector: '.profile__edit-button',
   buttonAddCardSelector: '.profile__add-button',
 
@@ -15,6 +16,8 @@ export const PARAMS = {
   errorClass: 'popup__error_visible',
   popupOpenedClass: 'popup_opened',
   popupButtonCloseClass: 'popup__button-close',
+
+  popupUpdateAvatar: '.popup_type_avatar',
 
   popupUserSelector: '.popup_type_profile',
   popupInputNameSelector: '.popup__input_fullname',
@@ -29,6 +32,12 @@ export const PARAMS = {
   popupConfirmationSelector: '.popup_type_confirmation',
 
   cardsItemsSelector: '.cards__items',
+  cardItemSelector: '.cards__item',
+  cardImgSelector: '.cards__img',
+  cardTitleSelector: '.cards__title',
+  cardHeartSelector: '.cards__heart',
+  cardCountLikesSelector: '.cards__count-likes',
+  cardTrashSelector: '.cards__trash',
   cardTemplateSelector:'#card__template',
   cardLikeClass: 'cards__heart_active',
 

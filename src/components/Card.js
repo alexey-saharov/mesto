@@ -33,14 +33,13 @@ export class Card {
     this._handleClickRemove = handleClickRemove;
   }
 
-  //todo поменять константы на PARAMS
   _getCardMarkup() {
-    this._cardElement = this._cardTemplate.querySelector('.cards__item').cloneNode(true);
-    this._cardImageElement = this._cardElement.querySelector('.cards__img');
-    this._cardTitleElement = this._cardElement.querySelector('.cards__title');
-    this._heartElement = this._cardElement.querySelector('.cards__heart');
-    this._countLikesElement = this._cardElement.querySelector('.cards__count-likes');
-    this._trashElement = this._cardElement.querySelector('.cards__trash');
+    this._cardElement = this._cardTemplate.querySelector(PARAMS.cardItemSelector).cloneNode(true);
+    this._cardImageElement = this._cardElement.querySelector(PARAMS.cardImgSelector);
+    this._cardTitleElement = this._cardElement.querySelector(PARAMS.cardTitleSelector);
+    this._heartElement = this._cardElement.querySelector(PARAMS.cardHeartSelector);
+    this._countLikesElement = this._cardElement.querySelector(PARAMS.cardCountLikesSelector);
+    this._trashElement = this._cardElement.querySelector(PARAMS.cardTrashSelector);
   }
 
   getCard() {
