@@ -18,18 +18,26 @@ export const PARAMS = {
   popupButtonCloseClass: 'popup__button-close',
 
   popupUpdateAvatar: '.popup_type_avatar',
+  popupUpdateAvatarSubmitButtonLoadingText: 'Сохранение...',
+  popupUpdateAvatarSubmitButtonStaticText: 'Сохранить',
 
   popupUserSelector: '.popup_type_profile',
   popupInputNameSelector: '.popup__input_fullname',
   popupInputJobSelector: '.popup__input_job',
+  popupUserSubmitButtonLoadingText: 'Сохранение...',
+  popupUserSubmitButtonStaticText: 'Сохранить',
 
   popupAddCardSelector: '.popup_type_card-add',
+  popupAddCardSubmitButtonLoadingText: 'Сохранение...',
+  popupAddCardSubmitButtonStaticText: 'Создать',
 
   popupImageSelector: '.popup_type_image',
   popupImageImgSelector: '.popup__image',
   popupImageTitleSelector: '.popup__image-title',
 
   popupConfirmationSelector: '.popup_type_confirmation',
+  popupConfirmationSubmitButtonLoadingText: 'Удаление...',
+  popupConfirmationSubmitButtonStaticText: 'Да',
 
   cardsItemsSelector: '.cards__items',
   cardItemSelector: '.cards__item',
@@ -44,3 +52,11 @@ export const PARAMS = {
   serverUrl: 'https://mesto.nomoreparties.co/v1/cohort-42',
   token: '29779b63-56c9-48f1-bf2c-946b66c63b59',
 };
+
+export const buttonUserAvatar = document.querySelector(PARAMS.userAvatarButtonSelector);
+export const buttonUserProfile = document.querySelector(PARAMS.buttonUserSelector);
+export const buttonAddCard = document.querySelector(PARAMS.buttonAddCardSelector);
+
+export const popupUserAvatarForm = document.querySelector(PARAMS.popupUpdateAvatar).querySelector(PARAMS.formSelector);
+export const popupUserProfileForm = document.querySelector(PARAMS.popupUserSelector).querySelector(PARAMS.formSelector);
+export const popupAddCardForm = document.querySelector(PARAMS.popupAddCardSelector).querySelector(PARAMS.formSelector);

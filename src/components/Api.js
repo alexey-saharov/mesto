@@ -78,4 +78,13 @@ export class Api {
     })
       .then(this._handleResponse)
   }
+
+  toggleLikeCard(id, targetLikeStatus) {
+    if (targetLikeStatus) {
+      return this.likeCard({ _id: id});
+    } else {
+      return this.deleteLikeCard({ _id: id});
+    }
+  }
+
 }

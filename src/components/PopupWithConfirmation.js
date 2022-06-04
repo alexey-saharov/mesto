@@ -1,14 +1,17 @@
 import {Popup} from "./Popup.js";
+import {PARAMS} from "../utils/constants.js";
 
 export class PopupWithConfirmation extends Popup {
   _handleSubmit;
   _form;
   _idCard;
   _cardElement;
+  _popupButton;
 
   constructor(popupSelector, formSelector) {
     super(popupSelector);
     this._form = document.querySelector(popupSelector).querySelector(formSelector);
+    this._popupButton = this._form.querySelector(PARAMS.submitButtonSelector);
   }
 
   open(idCard, cardElement, handleSubmit) {
@@ -16,6 +19,12 @@ export class PopupWithConfirmation extends Popup {
     this._handleSubmit = handleSubmit;
     this._idCard = idCard;
     this._cardElement = cardElement;
+  }
+
+  renderLoading(isLoading) {
+    this._popupButton.textContent = (isLoading)
+      ? PARAMS.popupConfirmationSubmitButtonLoadingText
+      : PARAMS.popupConfirmationSubmitButtonStaticText;
   }
 
   setEventListeners() {

@@ -17,11 +17,12 @@ export class UserInfo {
   }
 
   setUserInfo({ userName, userJob }) {
-    this._userNameElement.textContent = userName;
-    this._userJobElement.textContent = userJob;
+    if (userName) this._userNameElement.textContent = userName;
+    if (userJob) this._userJobElement.textContent = userJob;
   }
 
   setUserAvatar({ userAvatarSrc }) {
-    this._userAvatarElement.src = userAvatarSrc;
+    if (userAvatarSrc) this._userAvatarElement.src = userAvatarSrc;
+    this._userAvatarElement.alt = 'мой аватар';
   }
 }

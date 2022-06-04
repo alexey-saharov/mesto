@@ -6,11 +6,10 @@ export class Card {
   _name;
   _havingTrash;
   _countLikes;
-  _havingLikeActive;
-  _cardTemplate;
-  _handleClickImage;
-  _handleClickLike;
-  _handleClickRemove;
+  _isLiked;
+  _handleImageClick;
+  _handleLikeClick;
+  _handleRemoveClick;
 
   _cardElement;
   _cardImageElement;
@@ -19,22 +18,37 @@ export class Card {
   _countLikesElement;
   _trashElement;
 
-  constructor(id, link, name, havingTrash, havingLikeActive, countLikes, cardTemplateSelector, handleClickImage,
-              handleClickLike, handleClickRemove) {
-    this._id = id;
-    this._link = link;
-    this._name = name;
-    this._havingTrash = havingTrash;
-    this._countLikes = countLikes;
-    this._havingLikeActive = havingLikeActive;
-    this._cardTemplate = document.querySelector(cardTemplateSelector).content;
-    this._handleClickImage = handleClickImage;
-    this._handleClickLike = handleClickLike;
-    this._handleClickRemove = handleClickRemove;
+  constructor({ cardData, handleImageClick, handleLikeClick, handleRemoveClick }) {
+    this._id = cardData.id;
+    this._link = cardData.link;
+    this._name = cardData.name;
+    this._havingTrash = cardData.havingTrash;
+    this._countLikes = cardData.countLikes;
+    this._isLiked = cardData.havingLikeActive;
+    this._handleImageClick = handleImageClick;
+    this._handleLikeClick = handleLikeClick;
+    this._handleRemoveClick = handleRemoveClick;
+  }
+
+  getId() {
+    return this._id;
+  }
+
+  isLiked() {
+    return this._isLiked;
+  }
+
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(PARAMS.cardTemplateSelector)
+      .content
+      .querySelector(PARAMS.cardItemSelector)
+      .cloneNode(true);
+
+    return cardElement;
   }
 
   _getCardMarkup() {
-    this._cardElement = this._cardTemplate.querySelector(PARAMS.cardItemSelector).cloneNode(true);
     this._cardImageElement = this._cardElement.querySelector(PARAMS.cardImgSelector);
     this._cardTitleElement = this._cardElement.querySelector(PARAMS.cardTitleSelector);
     this._heartElement = this._cardElement.querySelector(PARAMS.cardHeartSelector);
@@ -42,7 +56,42 @@ export class Card {
     this._trashElement = this._cardElement.querySelector(PARAMS.cardTrashSelector);
   }
 
+  _showLike() {
+    this._heartElement.classList.add(PARAMS.cardLikeClass);
+  }
+
+  _hideLike() {
+    this._heartElement.classList.remove(PARAMS.cardLikeClass);
+  }
+
+  toggleLikeStatus() {
+    if (!this._isLiked) {
+      this._showLike();
+    } else {
+      this._hideLike();
+    }
+  }
+
+  showCountLikes(count) {
+    this._countLikesElement.textContent = (!count) ? '' : count;
+  }
+
+
+  _addEventListeners() {
+    this._heartElement.addEventListener('click', () => this._handleLikeClick(this));
+    this._cardImageElement.addEventListener('click', () => this._handleImageClick(this._link, this._name));
+    if (this._havingTrash) {
+      this._trashElement.addEventListener('click', () => this._handleRemoveClick(this._id, this));
+    }
+  }
+
+  remove() {
+    this._cardElement.remove();
+    this._cardElement = null;
+  }
+
   getCard() {
+    this._cardElement = this._getTemplate();
     this._getCardMarkup();
 
     this._cardImageElement.src = this._link;
@@ -53,16 +102,11 @@ export class Card {
       this._trashElement = null;
     }
     this._countLikesElement.textContent = (!this._countLikes) ? '' : this._countLikes;
-    if (this._havingLikeActive) {
+    if (this._isLiked) {
       this._heartElement.classList.add(PARAMS.cardLikeClass);
     }
 
-    this._heartElement.addEventListener('click', () => this._handleClickLike(this._id, this._heartElement,
-      this._countLikesElement));
-    this._cardImageElement.addEventListener('click', () => this._handleClickImage(this._link, this._name));
-    if (this._havingTrash) {
-      this._trashElement.addEventListener('click', () => this._handleClickRemove(this._id, this._cardElement));
-    }
+    this._addEventListeners();
 
     return this._cardElement;
   }

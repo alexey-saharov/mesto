@@ -8,22 +8,17 @@ import {Section} from '../components/Section.js';
 import {UserInfo} from '../components/UserInfo.js';
 import {Api} from '../components/Api.js';
 
-import {PARAMS} from '../utils/constants.js';
 import {PopupWithConfirmation} from "../components/PopupWithConfirmation.js";
+import {
+  PARAMS,
+  buttonUserAvatar,
+  buttonUserProfile,
+  buttonAddCard,
 
-const buttonUserAvatar = document.querySelector(PARAMS.userAvatarButtonSelector);
-const buttonUserProfile = document.querySelector(PARAMS.buttonUserSelector);
-const buttonAddCard = document.querySelector(PARAMS.buttonAddCardSelector);
-
-const popupUserAvatarForm = document.querySelector(PARAMS.popupUpdateAvatar).querySelector(PARAMS.formSelector);
-const popupUserProfileForm = document.querySelector(PARAMS.popupUserSelector).querySelector(PARAMS.formSelector);
-const popupAddCardForm = document.querySelector(PARAMS.popupAddCardSelector).querySelector(PARAMS.formSelector);
-
-const popupUserAvatarSubmitButton = popupUserAvatarForm.querySelector(PARAMS.submitButtonSelector);
-const popupUserProfileSubmitButton = popupUserProfileForm.querySelector(PARAMS.submitButtonSelector);
-const popupAddCardSubmitButton = popupAddCardForm.querySelector(PARAMS.submitButtonSelector);
-const popupConfirmationSubmitButton = document.querySelector(PARAMS.popupConfirmationSelector)
-  .querySelector(PARAMS.submitButtonSelector);
+  popupUserAvatarForm,
+  popupUserProfileForm,
+  popupAddCardForm,
+} from '../utils/constants.js';
 
 const api = new Api({
   baseUrl: PARAMS.serverUrl,
@@ -33,57 +28,47 @@ const api = new Api({
   }
 });
 
-function createCard({ id, link, name, havingTrash, havingLikeActive, countLikes }) {
-  return new Card(id, link, name, havingTrash, havingLikeActive, countLikes, PARAMS.cardTemplateSelector,
-    handleCardClick, handleCardLikeCLick, handleCardRemoveCLick).getCard();
+function createCard(cardData) {
+  const card = new Card({
+    cardData,
+
+    handleImageClick: (link, name) => {
+      popupImage.open(link, name);
+    },
+
+    handleLikeClick: (card) => {
+      api.toggleLikeCard(card.getId(), !card.isLiked())
+        .then(res => {
+          card.toggleLikeStatus();
+          card.showCountLikes(res.likes.length);
+        })
+        .catch(err => console.log(err));
+    },
+
+    handleRemoveClick: (id, cardElement) => {
+      popupConfirmation.renderLoading(false);
+      popupConfirmation.open(id, cardElement, handleSubmitPopupConfirmation);
+      popupConfirmation.setEventListeners();
+    }
+  });
+
+  return card.getCard();
 }
 
-function handleCardClick(link, name) {
-  popupImage.open(link, name);
-}
-
-function handleCardLikeCLick(idCard, heartElement, countLikesElement) {
-  function showCountLikes(count) {
-    countLikesElement.textContent = (!count) ? '' : count;
-  }
-  if (heartElement.classList.contains(PARAMS.cardLikeClass)) {
-    api.deleteLikeCard({ _id: idCard })
-      .then(res => {
-        showCountLikes(res.likes.length);
-        heartElement.classList.remove(PARAMS.cardLikeClass);
-      })
-      .catch(err => console.log(err));
-  } else {
-    api.likeCard({ _id: idCard })
-      .then(res => {
-        showCountLikes(res.likes.length);
-        heartElement.classList.add(PARAMS.cardLikeClass);
-      })
-      .catch(err => console.log(err));
-  }
-}
-
-function handleSubmitPopupConfirmation(idCard, cardElement) {
-  popupConfirmationSubmitButton.textContent = 'Удаление...';
+function handleSubmitPopupConfirmation(idCard, card) {
+  popupConfirmation.renderLoading(true);
   api.deleteCard({ _id: idCard})
     .then(() => {
       popupConfirmation.close();
-      cardElement.remove();
-      cardElement = null;
+      card.remove();
     })
     .catch(err => console.log(err));
 }
 
 const popupConfirmation = new PopupWithConfirmation(PARAMS.popupConfirmationSelector, PARAMS.formSelector);
 
-function handleCardRemoveCLick(id, cardElement) {
-  popupConfirmationSubmitButton.textContent = 'Да';
-  popupConfirmation.open(id, cardElement, handleSubmitPopupConfirmation);
-  popupConfirmation.setEventListeners();
-}
-
 function handleSubmitPopupUserProfile(inputValues) {
-  popupUserProfileSubmitButton.textContent = 'Сохранение...';
+  popupUserProfile.renderLoading(true);
   api.updateUserData({
     name: inputValues.fullname,
     about: inputValues.job
@@ -97,7 +82,14 @@ function handleSubmitPopupUserProfile(inputValues) {
   popupUserProfile.close();
 }
 
-const popupUserProfile = new PopupWithForm(PARAMS.popupUserSelector, handleSubmitPopupUserProfile, PARAMS.formSelector);
+const popupUserProfile = new PopupWithForm(
+  PARAMS.popupUserSelector,
+  handleSubmitPopupUserProfile,
+  PARAMS.formSelector,
+  PARAMS.popupUserSubmitButtonLoadingText,
+  PARAMS.popupUserSubmitButtonStaticText
+);
+
 const userInfo = new UserInfo({
   userNameSelector: PARAMS.userNameSelector,
   userJobSelector: PARAMS.userJobSelector,
@@ -106,39 +98,44 @@ const userInfo = new UserInfo({
 
 let cardList = {};
 
-api.getUser()
-  .then(res => {
+Promise.all([
+  api.getUser(),
+  api.getInitialCards()
+])
+  .then(([ getUserRes, getInitialCardsRes]) => {
     userInfo.setUserInfo({
-      userName: res.name,
-      userJob: res.about,
+      userName: getUserRes.name,
+      userJob: getUserRes.about,
     });
     userInfo.setUserAvatar({
-      userAvatarSrc: res.avatar,
+      userAvatarSrc: getUserRes.avatar,
     });
-    const myUserId = res._id;
+    const myUserId = getUserRes._id;
 
-    api.getInitialCards()
-      .then(res => {
-        cardList = new Section({
-            items: res,
-            renderer: ({ _id, link, name, owner, likes }) => {
-              const havingTrash = (owner._id === myUserId);
-              const havingLikeActive = !!likes.find(item => item._id === myUserId);
-              const card = createCard({ id: _id, link, name, havingTrash,
-                havingLikeActive, countLikes: likes.length });
-              cardList.addItemAppend(card);
-            }
-          },
-          PARAMS.cardsItemsSelector
-        );
-        cardList.renderItems();
-      })
-      .catch(err => err);
+    cardList = new Section({
+        items: getInitialCardsRes,
+        renderer: ({ _id, link, name, owner, likes }) => {
+          const havingTrash = (owner._id === myUserId);
+          const havingLikeActive = !!likes.find(item => item._id === myUserId);
+          const card = createCard({
+            id: _id,
+            link,
+            name,
+            havingTrash,
+            havingLikeActive,
+            countLikes: likes.length
+          });
+          cardList.addItemAppend(card);
+        }
+      },
+      PARAMS.cardsItemsSelector
+    );
+    cardList.renderItems();
   })
-  .catch(err => err);
+  .catch(err => console.log(err));
 
 function handleSubmitPopupAddCard (inputValues) {
-  popupAddCardSubmitButton.textContent = 'Сохранение...';
+  popupAddCard.renderLoading(true);
   api.addCard({
     name: inputValues.name,
     link: inputValues.link
@@ -147,15 +144,27 @@ function handleSubmitPopupAddCard (inputValues) {
       const idCard = res._id;
       const havingTrash = true;
       const havingLikeActive = false;
-      const card = createCard({ id: idCard, link: inputValues.link, name: inputValues.name,
-        havingTrash, havingLikeActive, countLikes: 0 });
+      const card = createCard({
+        id: idCard,
+        link: inputValues.link,
+        name: inputValues.name,
+        havingTrash,
+        havingLikeActive,
+        countLikes: 0
+      });
       cardList.addItemPrepend(card);
       popupAddCard.close();
     })
     .catch(err => console.log(err));
 }
 
-const popupAddCard = new PopupWithForm(PARAMS.popupAddCardSelector, handleSubmitPopupAddCard, PARAMS.formSelector);
+const popupAddCard = new PopupWithForm(
+  PARAMS.popupAddCardSelector,
+  handleSubmitPopupAddCard,
+  PARAMS.formSelector,
+  PARAMS.popupAddCardSubmitButtonLoadingText,
+  PARAMS.popupAddCardSubmitButtonStaticText
+);
 
 const popupImage = new PopupWithImage({
   popupSelector: PARAMS.popupImageSelector,
@@ -171,20 +180,20 @@ buttonUserProfile.addEventListener('click', () => {
   const { userName, userJob } = userInfo.getUserInfo();
   popupUserProfile.setInputValue(PARAMS.popupInputNameSelector, userName);
   popupUserProfile.setInputValue(PARAMS.popupInputJobSelector, userJob);
-  popupUserProfileSubmitButton.textContent = 'Сохранить';
+  popupUserProfile.renderLoading(false);
   popupUserProfile.open();
   userProfileFormValidator.clearErrors();
 });
 popupUserProfile.setEventListeners();
 
 buttonAddCard.addEventListener('click', () => {
-  popupAddCardSubmitButton.textContent = 'Создать';
+  popupAddCard.renderLoading(false);
   popupAddCard.open();
   addCardFormValidator.clearErrors();
 });
 
 function handleSubmitPopupUserAvatar(inputValues) {
-  popupUserAvatarSubmitButton.textContent = 'Сохранение...';
+  popupUserAvatar.renderLoading(true);
   api.updateUserAvatar({ avatar: inputValues.link_avatar })
     .then(res => {
       userInfo.setUserAvatar({
@@ -195,11 +204,16 @@ function handleSubmitPopupUserAvatar(inputValues) {
     .catch(err => console.log(err));
 }
 
-const popupUserAvatar = new PopupWithForm(PARAMS.popupUpdateAvatar, handleSubmitPopupUserAvatar,
-  PARAMS.formSelector);
+const popupUserAvatar = new PopupWithForm(
+  PARAMS.popupUpdateAvatar,
+  handleSubmitPopupUserAvatar,
+  PARAMS.formSelector,
+  PARAMS.popupUpdateAvatarSubmitButtonLoadingText,
+  PARAMS.popupUpdateAvatarSubmitButtonStaticText
+);
 
 buttonUserAvatar.addEventListener('click', () => {
-  popupUserAvatarSubmitButton.textContent = 'Сохранить';
+  popupUserAvatar.renderLoading(false);
   popupUserAvatar.open();
   userAvatarFormValidator.clearErrors();
 });
